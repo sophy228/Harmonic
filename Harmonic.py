@@ -2,18 +2,22 @@
 from Pitch import Pitch
 from Tonality import Tonality
 from Tonality import Scale
+from Chord import Interval
+from Chord import *
 
-ptich = Pitch("E#")
-ptich.rename()
-print(ptich.pitchname)
-print("#########################################")
-tonality = Tonality(Pitch("D"), Scale.Major)
-pitch_list = tonality.get_pitchset()
-for p in pitch_list:
-    print(p.pitchname,end=' ')
-print('')
-tonality = Tonality(Pitch("C"), Scale.Minor)
-pitch_list = tonality.get_pitchset()
-for p in pitch_list:
-    print(p.pitchname,end=' ')
-print('')
+
+if __name__ == '__main__':
+    while(True):
+        print("##################################")
+        pitchname = input("请输入主调:")
+        print("0 大调")
+        print("1 小调")
+        scale = int(input("请选择调式:"))
+        if(scale == 0):
+            tonality = Tonality(Pitch(pitchname),Scale.Major)
+            tonality.dump_detail()
+        elif(scale == 1):
+            tonality = Tonality(Pitch(pitchname),Scale.Minor)
+            tonality.dump_detail()
+        
+        

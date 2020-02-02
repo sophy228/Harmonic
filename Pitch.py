@@ -1,3 +1,5 @@
+from Chord import Interval
+
 class Pitch(object):
     """description of class"""
     A4_frequncy = 440
@@ -27,7 +29,7 @@ class Pitch(object):
         freq = current_A_freq *(2**(n/12))
         return freq
 
-    def add_interval(self, number):
+    def __add_interval(self, number):
          interval_index = self.interval_table[self.basepitch]
          interval_index += self.signature_list.get(self.key_signature, 0)
          interval_index += number;
@@ -43,7 +45,37 @@ class Pitch(object):
          new_oct_index = self.oct_index + interval_index // 12
          new_pitchname = str.format("{}{}{}",new_basepitch,new_oct_index,new_key_signature)
          return Pitch(new_pitchname)
-    
+
+    def forward_interval(self, interval:Interval):
+        staffnumber = int(interval.name[1])
+        prefix = interval.name[0]
+        invervalnumber = interval.value
+        notes_list = list(self.interval_table.keys())
+        selfindex = notes_list.index(self.basepitch)
+        newnoteindex = (selfindex + staffnumber - 1) % 7 
+        newnote = notes_list[newnoteindex]
+        new_oct_index = self.oct_index
+        if(newnoteindex > selfindex):
+            realnumber = self.interval_table[newnote] - self.interval_table[self.basepitch]
+            new_oct_index + 1
+        else:
+            realnumber = 11 - self.interval_table[self.basepitch]
+            realnumber += (self.interval_table[newnote] + 1)
+            new_oct_index += 1
+            
+        if(self.key_signature == 'b'):
+            realnumber += 1
+        elif(self.key_signature == '#'):
+            realnumber -= 1
+        if(realnumber > invervalnumber):
+            signaure = 'b'
+        elif(realnumber < invervalnumber):
+            signaure = '#'
+        else:
+            signaure = ''
+        new_pitchname = str.format("{}{}{}",newnote,new_oct_index,signaure)
+        return Pitch(new_pitchname)
+
     def rename(self):
         if(self.key_signature in self.signature_list):
             names = list(self.interval_table.keys())
@@ -64,4 +96,6 @@ class Pitch(object):
             self.pitchname = str.format("{}{}{}",self.basepitch,self.oct_index,self.key_signature)
 
     def __str__(self):
+        if(self.oct_index == 4):
+            return str.format("{}{}",self.basepitch,self.key_signature)
         return self.pitchname
