@@ -4,7 +4,12 @@ from Tonality import Tonality
 from Tonality import Scale
 from Chord import Interval
 from Chord import *
+from Ukulele import *
 
+
+ukulele = Ukulele()
+ukulele.dump()
+ukulele.dump_chord(MajorTraid(Pitch("D")))
 
 if __name__ == '__main__':
     while(True):
