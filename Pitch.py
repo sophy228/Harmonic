@@ -29,7 +29,7 @@ class Pitch(object):
         freq = current_A_freq *(2**(n/12))
         return freq
 
-    def __add_interval(self, number):
+    def add_interval(self, number):
          interval_index = self.interval_table[self.basepitch]
          interval_index += self.signature_list.get(self.key_signature, 0)
          interval_index += number;
@@ -57,7 +57,6 @@ class Pitch(object):
         new_oct_index = self.oct_index
         if(newnoteindex > selfindex):
             realnumber = self.interval_table[newnote] - self.interval_table[self.basepitch]
-            new_oct_index + 1
         else:
             realnumber = 11 - self.interval_table[self.basepitch]
             realnumber += (self.interval_table[newnote] + 1)
@@ -96,6 +95,6 @@ class Pitch(object):
             self.pitchname = str.format("{}{}{}",self.basepitch,self.oct_index,self.key_signature)
 
     def __str__(self):
-        if(self.oct_index == 4):
-            return str.format("{}{}",self.basepitch,self.key_signature)
-        return self.pitchname
+       # if(self.oct_index == 4):
+       return str.format("{}{}",self.basepitch,self.key_signature)
+       # return self.pitchname

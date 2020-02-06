@@ -44,14 +44,15 @@ class Tonality(object):
                 index += 1
         elif(self.scale == Scale.Minor):
             for pitch in pitchlist:
-                if(index == 7):
-                    break;
+
                 if(index == 2):
                     chordstable[index] = DiminishedTraid(pitch)
                 elif (index == 1 or index == 4 or index == 5):
                     chordstable[index] = MinorTraid(pitch)
                 else:
                     chordstable[index] = MajorTraid(pitch)
+                if(index == 7):
+                    break;
                 index += 1
 
         return chordstable
